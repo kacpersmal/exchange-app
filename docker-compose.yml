@@ -1,6 +1,36 @@
 version: "3"
 
 services:
+  history-service:
+    container_name: exchange_history_service
+    build:
+      context: ./exchange-currency-history-service
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/exchange-currency-history-service
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - CURRENCY_SOCKET_URL=ws://webtask.future-processing.com:8068/ws/currencies
+      - EXCHANGE_DATABASE_URL=postgre://pguser:pgpassword123@postgre:5432/node-exchange
+    depends_on:
+      postgre:
+        condition: service_healthy
+  user-service:
+    container_name: exchange_user_service
+    build:
+      context: ./exchange-user-service
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/exchange-user-service
+    environment:
+      - PORT=3002
+    ports:
+      - "3002:3002"
+    depends_on:
+      postgre:
+        condition: service_healthy
   client:
     container_name: exchange_client
     build:
@@ -13,7 +43,6 @@ services:
   postgre:
     container_name: exchange_postgre
     image: postgres
-    restart: unless-stopped
     environment:
       POSTGRES_USER: pguser
       POSTGRES_PASSWORD: pgpassword123
@@ -22,10 +51,14 @@ services:
       - "5432:5432"
     volumes:
       - ./database-seed.sql:/docker-entrypoint-initdb.d/database-seed.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   pgadmin:
     container_name: exchange_pgadmin
     image: dpage/pgadmin4
-    restart: unless-stopped
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: root
