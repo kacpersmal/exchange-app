@@ -2,11 +2,14 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import store from './store';
 import { Auth0Provider } from '@auth0/auth0-react';
+import { ExchangeRateProvider } from './modules/core';
 const Providers = ({ children }) => {
   return (
     <>
       <Auth0Provider domain="dev-e4zbetfqcnjlo84d.us.auth0.com" clientId="9VUWFgacitmIeAzofxKSdlb34YYDyIvm" redirectUri={window.location.origin}>
-        <Provider store={store}>{children}</Provider>
+        <Provider store={store}>
+          <ExchangeRateProvider>{children}</ExchangeRateProvider>
+        </Provider>
       </Auth0Provider>
     </>
   );
