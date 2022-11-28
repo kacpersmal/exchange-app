@@ -2,10 +2,6 @@ const express = require("express");
 const { GetUserWallet, CreateUserWallet } = require("./db-actions");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  res.send("Dupa");
-});
-
 router.get("/wallets/:user_id", async (req, res) => {
   const userId = req.params["user_id"];
 
