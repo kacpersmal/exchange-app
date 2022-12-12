@@ -42,16 +42,26 @@ const AddExchangeHistoryRecord = async (data) => {
   } finally {
     client.release();
   }
+  await pool.end();
 };
 
 const GetLatestHistoryRecords = async (maxItems = 120) => {
   const pool = GetPool();
   const client = await pool.connect();
-  const queryString = `SELECT * FROM exchange_history.history_record
-  ORDER BY publication_date DESC
-  LIMIT $1`;
-  const result = await client.query(queryString, [maxItems]);
-  return result.rows;
+  const queryString = `SELECT publication_date,average_price FROM exchange_history.history_record
+  WHERE code=$1
+  ORDER BY publication_date ASC
+  LIMIT $2`;
+  const codes = ["CZK", "USD", "RUB", "GBP", "CHF", "EUR"];
+  let result = [];
+
+  for (const code of codes) {
+    const queryResult = await client.query(queryString, [code, maxItems]);
+    result.push({ code: code, items: queryResult.rows });
+  }
+  await client.release();
+  await pool.end();
+  return { result };
 };
 
 module.exports = { AddExchangeHistoryRecord, GetLatestHistoryRecords };

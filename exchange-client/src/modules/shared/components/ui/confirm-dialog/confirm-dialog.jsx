@@ -17,7 +17,7 @@ const ConfirmDialog = ({ onConfirm, onCancel, display = false }) => {
           </button>
           <button onClick={onCancel} className="p-2 border border-pink-700 bg-neutral-800 hover:bg-neutral-900 rounded-md text-pink-700">
             Cancel <FontAwesomeIcon icon={faCancel} />
-          </button>{' '}
+          </button>
         </div>
       </div>
     </div>

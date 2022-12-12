@@ -1,18 +1,18 @@
 import React from 'react';
-import google from '../../../assets/google.png';
+import google from './google.png';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useDispatch } from 'react-redux';
-import { setLoading } from '../../../global-slice';
+import { showLoader, hideLoader } from '../../shared';
 const SignInButton = () => {
   const { loginWithPopup } = useAuth0();
   const dispatch = useDispatch();
 
   const onSignIn = async (event) => {
-    dispatch(setLoading(true));
+    dispatch(showLoader());
 
     await loginWithPopup();
 
-    dispatch(setLoading(false));
+    dispatch(hideLoader());
   };
 
   return (

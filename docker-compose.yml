@@ -26,6 +26,8 @@ services:
       - ./:/exchange-user-service
     environment:
       - PORT=3002
+      - EXCHANGE_DATABASE_URL=postgre://pguser:pgpassword123@postgre:5432/node-exchange
+
     ports:
       - "3002:3002"
     depends_on:

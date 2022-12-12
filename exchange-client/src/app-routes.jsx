@@ -1,7 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { LandingPage, ExchangePage, AuthGuard } from './modules/shared';
+import { LandingPage, ExchangePage } from './modules/shared';
 import { UserProfilePage } from './modules/user';
+import { AuthGuard } from './modules/auth';
 const AppRoutes = () => {
   return (
     <>

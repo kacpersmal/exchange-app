@@ -12,7 +12,7 @@ CREATE TABLE exchange_history.history_record
   "purchase_price"  DECIMAL NOT NULL,
   "sell_price" DECIMAL NOT NULL,
   "average_price" DECIMAL NOT NULL
-);
+  );
 
 /* USER SERVICE SCHEMA */
 

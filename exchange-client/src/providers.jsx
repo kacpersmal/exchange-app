@@ -6,7 +6,7 @@ import { ExchangeRateProvider } from './modules/core';
 const Providers = ({ children }) => {
   return (
     <>
-      <Auth0Provider domain="dev-e4zbetfqcnjlo84d.us.auth0.com" clientId="9VUWFgacitmIeAzofxKSdlb34YYDyIvm" redirectUri={window.location.origin}>
+      <Auth0Provider domain={import.meta.env.VITE_AUTH_DOMAIN} clientId={import.meta.env.VITE_AUTH_CLIENTID}>
         <Provider store={store}>
           <ExchangeRateProvider>{children}</ExchangeRateProvider>
         </Provider>

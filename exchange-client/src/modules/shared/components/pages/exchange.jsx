@@ -1,5 +1,6 @@
 import React from 'react';
-import { CurrencyMarket } from '../../../core';
+import { CurrencyHistoryChart, CurrencyMarket } from '../../../core';
+import { UserWallet } from '../../../user';
 
 const Card = ({ children, title }) => {
   return (
@@ -16,8 +17,11 @@ const ExchangePage = () => {
       <div className="flex flex-row mx-auto my-auto items-center justify-center gap-2 mt-10">
         <Card title="Currencies">
           <CurrencyMarket />
+          <CurrencyHistoryChart />
         </Card>
-        <Card title="My wallet">eee 2 </Card>
+        <Card title="My wallet">
+          <UserWallet />
+        </Card>
       </div>
     </div>
   );

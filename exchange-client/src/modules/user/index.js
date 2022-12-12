@@ -1,3 +1,4 @@
 import UserProfileNavButton from './components/user-profile-nav-button';
 import UserProfilePage from './pages/user-profile-page';
-export { UserProfileNavButton, UserProfilePage };
+import UserWallet from './components/wallet/user-wallet';
+export { UserProfileNavButton, UserProfilePage, UserWallet };
